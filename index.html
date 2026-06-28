@@ -212,7 +212,7 @@ zTXX+DfffLOQuuP8bRuG5qcwAowAI8AItIXAaUvoba2On8QIMAKMACPACCQEASb0hBial8kIMAKMACMQ
       <div class="terminal-body" id="term-body">
         <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">krr install @base</span></div>
         <div class="t-line"><span class="t-ok">✓</span><span style="color:var(--text);opacity:.8">جاري تثبيت 35 حزمة...</span></div>
-        <div class="t-line"><span class="t-ok">✓</span><span style="color:var(--text);opacity:.8">glibc-2.39 تم تثبيتها</span></div>
+        <div class="t-line"><span class="t-ok">✓</span><span style="color:var(--text);opacity:.8">musl-1.2.5 تم تثبيتها</span></div>
         <div class="t-line t-dim"># جرّب: ls  |  krr list  |  cat README.md  |  help</div>
         <div class="t-input-line">
           <span class="t-prompt" id="t-prompt-span">alghadir@os <span style="color:var(--gold2)">~</span> $</span>
@@ -344,7 +344,7 @@ zTXX+DfffLOQuuP8bRuG5qcwAowAI8AItIXAaUvoba2On8QIMAKMACPACCQEASb0hBial8kIMAKMACMQ
     <div class="phil-card">
       <div class="phil-icon">🌱</div>
       <h4>من الصفر بلا مساومة</h4>
-      <p>كل سطر في النظام مبرمج ومحدد الغرض. لا حزم زائدة، لا مكوّنات مجهولة — أنت تعرف كل ما يعمل على جهازك.</p>
+      <p>كل سطر في النظام مبرمج ومحدد الغرض. musl بدل glibc، clang بدل gcc — لا حزم زائدة، لا مكوّنات مجهولة.</p>
     </div>
     <div class="phil-card">
       <div class="phil-icon">🗣</div>
@@ -383,93 +383,93 @@ if(pc){for(let i=0;i<25;i++){const p=document.createElement('div');p.className='
 const packages=[
   {name:'linux',ver:'6.9.12',desc:'نواة لينكس',deps:'—',layer:0},
   {name:'linux-headers',ver:'6.9.12',desc:'ترويسات نواة لينكس',deps:'—',layer:0},
-  {name:'glibc',ver:'2.39',desc:'مكتبة GNU C القياسية',deps:'linux-headers',layer:0},
-  {name:'llvm',ver:'18.1.8',desc:'البنية التحتية لمجمّعات LLVM',deps:'glibc,zlib,libffi,ncurses,cmake',layer:0},
-  {name:'clang',ver:'18.1.8',desc:'مجمّع C/C++ المبني على LLVM — بديل gcc',deps:'llvm,glibc',layer:0},
-  {name:'lld',ver:'18.1.8',desc:'رابط LLVM السريع — بديل ld',deps:'llvm,glibc',layer:0},
-  {name:'compiler-rt',ver:'18.1.8',desc:'مكتبات وقت تشغيل LLVM (sanitizers)',deps:'llvm,clang,glibc',layer:0},
-  {name:'libunwind',ver:'18.1.8',desc:'مكتبة فك تكديس الإطارات من LLVM',deps:'llvm,glibc',layer:0},
-  {name:'libc++abi',ver:'18.1.8',desc:'مكتبة ABI لـ C++ من LLVM',deps:'llvm,clang,libunwind,glibc',layer:0},
+  {name:'musl',ver:'1.2.5',desc:'مكتبة C خفيفة ونظيفة — بديل glibc',deps:'linux-headers',layer:0},
+  {name:'llvm',ver:'18.1.8',desc:'البنية التحتية لمجمّعات LLVM',deps:'musl,zlib,libffi,ncurses,cmake',layer:0},
+  {name:'clang',ver:'18.1.8',desc:'مجمّع C/C++ المبني على LLVM — بديل gcc',deps:'llvm,musl',layer:0},
+  {name:'lld',ver:'18.1.8',desc:'رابط LLVM السريع — بديل ld',deps:'llvm,musl',layer:0},
+  {name:'compiler-rt',ver:'18.1.8',desc:'مكتبات وقت تشغيل LLVM (sanitizers)',deps:'llvm,clang,musl',layer:0},
+  {name:'libunwind',ver:'18.1.8',desc:'مكتبة فك تكديس الإطارات من LLVM',deps:'llvm,musl',layer:0},
+  {name:'libc++abi',ver:'18.1.8',desc:'مكتبة ABI لـ C++ من LLVM',deps:'llvm,clang,libunwind,musl',layer:0},
   {name:'libc++',ver:'18.1.8',desc:'مكتبة C++ القياسية من LLVM — بديل libstdcxx',deps:'llvm,clang,libc++abi,libunwind',layer:0},
-  {name:'zlib',ver:'1.3.1',desc:'مكتبة ضغط zlib',deps:'glibc',layer:1},
-  {name:'ncurses',ver:'6.5',desc:'مكتبة واجهة الطرفية',deps:'glibc',layer:1},
-  {name:'readline',ver:'8.2.13',desc:'مكتبة قراءة السطر التفاعلي',deps:'glibc,ncurses',layer:1},
-  {name:'openssl',ver:'3.3.1',desc:'تشفير SSL/TLS',deps:'glibc,zlib',layer:1},
-  {name:'libffi',ver:'3.4.6',desc:'مكتبة استدعاء الدوال الأجنبية',deps:'glibc',layer:1},
-  {name:'expat',ver:'2.6.3',desc:'مكتبة تحليل XML',deps:'glibc',layer:1},
-  {name:'pcre2',ver:'10.44',desc:'مكتبة التعابير النمطية',deps:'glibc',layer:1},
-  {name:'attr',ver:'2.5.2',desc:'مكتبة الخصائص الممتدة',deps:'glibc',layer:1},
-  {name:'acl',ver:'2.3.2',desc:'قوائم التحكم بالوصول',deps:'glibc,attr',layer:1},
-  {name:'libcap',ver:'2.70',desc:'مكتبة POSIX capabilities',deps:'glibc',layer:1},
-  {name:'libgdbm',ver:'1.24',desc:'قواعد بيانات مفتاح-قيمة',deps:'glibc',layer:1},
-  {name:'libelf',ver:'0.191',desc:'مكتبة قراءة ملفات ELF',deps:'glibc,zlib',layer:1},
-  {name:'libmnl',ver:'1.0.5',desc:'مكتبة Netlink خفيفة',deps:'glibc',layer:1},
-  {name:'libnftnl',ver:'1.2.7',desc:'مكتبة nftables',deps:'glibc,libmnl',layer:1},
-  {name:'libnghttp2',ver:'1.63.0',desc:'مكتبة HTTP/2',deps:'glibc,openssl',layer:1},
-  {name:'libpipeline',ver:'1.5.7',desc:'مكتبة تنفيذ أوامر متسلسلة',deps:'glibc',layer:1},
-  {name:'libgpg-error',ver:'1.50',desc:'مكتبة رموز أخطاء GnuPG',deps:'glibc',layer:1},
-  {name:'libgcrypt',ver:'1.11.0',desc:'خوارزميات التشفير',deps:'glibc,libgpg-error',layer:1},
-  {name:'libassuan',ver:'3.0.1',desc:'مكتبة IPC لـ GnuPG',deps:'glibc,libgpg-error',layer:1},
-  {name:'libksba',ver:'1.6.7',desc:'مكتبة X.509 وCMS',deps:'glibc,libgpg-error',layer:1},
-  {name:'npth',ver:'1.7',desc:'مكتبة pthreads محسّنة',deps:'glibc',layer:1},
-  {name:'libpam',ver:'1.6.1',desc:'مكتبة المصادقة PAM',deps:'glibc,libaudit',layer:1},
-  {name:'libaudit',ver:'3.1.4',desc:'مكتبة تسجيل أحداث الأمان',deps:'glibc',layer:1},
-  {name:'libblkid',ver:'2.40.2',desc:'مكتبة تعريف الأجهزة',deps:'glibc',layer:1},
-  {name:'libuuid',ver:'2.40.2',desc:'مكتبة توليد UUID',deps:'glibc',layer:1},
-  {name:'libmount',ver:'2.40.2',desc:'مكتبة تحميل أنظمة الملفات',deps:'glibc,libblkid',layer:1},
-  {name:'libaio',ver:'0.3.113',desc:'الإدخال/إخراج غير المتزامن',deps:'glibc',layer:1},
-  {name:'libdevmapper',ver:'2.03.25',desc:'مكتبة device-mapper',deps:'glibc',layer:1},
-  {name:'make',ver:'4.4.1',desc:'أداة بناء GNU make',deps:'glibc',layer:2},
-  {name:'cmake',ver:'3.30.2',desc:'نظام بناء متعدد المنصات',deps:'glibc,libstdcxx,openssl',layer:2},
-  {name:'pkg-config',ver:'0.29.2',desc:'أداة استعلام مكتبات النظام',deps:'glibc',layer:2},
-  {name:'autoconf',ver:'2.72',desc:'توليد سكربتات configure',deps:'glibc,m4',layer:2},
+  {name:'zlib',ver:'1.3.1',desc:'مكتبة ضغط zlib',deps:'musl',layer:1},
+  {name:'ncurses',ver:'6.5',desc:'مكتبة واجهة الطرفية',deps:'musl',layer:1},
+  {name:'readline',ver:'8.2.13',desc:'مكتبة قراءة السطر التفاعلي',deps:'musl,ncurses',layer:1},
+  {name:'openssl',ver:'3.3.1',desc:'تشفير SSL/TLS',deps:'musl,zlib',layer:1},
+  {name:'libffi',ver:'3.4.6',desc:'مكتبة استدعاء الدوال الأجنبية',deps:'musl',layer:1},
+  {name:'expat',ver:'2.6.3',desc:'مكتبة تحليل XML',deps:'musl',layer:1},
+  {name:'pcre2',ver:'10.44',desc:'مكتبة التعابير النمطية',deps:'musl',layer:1},
+  {name:'attr',ver:'2.5.2',desc:'مكتبة الخصائص الممتدة',deps:'musl',layer:1},
+  {name:'acl',ver:'2.3.2',desc:'قوائم التحكم بالوصول',deps:'musl,attr',layer:1},
+  {name:'libcap',ver:'2.70',desc:'مكتبة POSIX capabilities',deps:'musl',layer:1},
+  {name:'libgdbm',ver:'1.24',desc:'قواعد بيانات مفتاح-قيمة',deps:'musl',layer:1},
+  {name:'libelf',ver:'0.191',desc:'مكتبة قراءة ملفات ELF',deps:'musl,zlib',layer:1},
+  {name:'libmnl',ver:'1.0.5',desc:'مكتبة Netlink خفيفة',deps:'musl',layer:1},
+  {name:'libnftnl',ver:'1.2.7',desc:'مكتبة nftables',deps:'musl,libmnl',layer:1},
+  {name:'libnghttp2',ver:'1.63.0',desc:'مكتبة HTTP/2',deps:'musl,openssl',layer:1},
+  {name:'libpipeline',ver:'1.5.7',desc:'مكتبة تنفيذ أوامر متسلسلة',deps:'musl',layer:1},
+  {name:'libgpg-error',ver:'1.50',desc:'مكتبة رموز أخطاء GnuPG',deps:'musl',layer:1},
+  {name:'libgcrypt',ver:'1.11.0',desc:'خوارزميات التشفير',deps:'musl,libgpg-error',layer:1},
+  {name:'libassuan',ver:'3.0.1',desc:'مكتبة IPC لـ GnuPG',deps:'musl,libgpg-error',layer:1},
+  {name:'libksba',ver:'1.6.7',desc:'مكتبة X.509 وCMS',deps:'musl,libgpg-error',layer:1},
+  {name:'npth',ver:'1.7',desc:'مكتبة pthreads محسّنة',deps:'musl',layer:1},
+  {name:'libpam',ver:'1.6.1',desc:'مكتبة المصادقة PAM',deps:'musl,libaudit',layer:1},
+  {name:'libaudit',ver:'3.1.4',desc:'مكتبة تسجيل أحداث الأمان',deps:'musl',layer:1},
+  {name:'libblkid',ver:'2.40.2',desc:'مكتبة تعريف الأجهزة',deps:'musl',layer:1},
+  {name:'libuuid',ver:'2.40.2',desc:'مكتبة توليد UUID',deps:'musl',layer:1},
+  {name:'libmount',ver:'2.40.2',desc:'مكتبة تحميل أنظمة الملفات',deps:'musl,libblkid',layer:1},
+  {name:'libaio',ver:'0.3.113',desc:'الإدخال/إخراج غير المتزامن',deps:'musl',layer:1},
+  {name:'libdevmapper',ver:'2.03.25',desc:'مكتبة device-mapper',deps:'musl',layer:1},
+  {name:'make',ver:'4.4.1',desc:'أداة بناء GNU make',deps:'musl',layer:2},
+  {name:'cmake',ver:'3.30.2',desc:'نظام بناء متعدد المنصات',deps:'musl,libstdcxx,openssl',layer:2},
+  {name:'pkg-config',ver:'0.29.2',desc:'أداة استعلام مكتبات النظام',deps:'musl',layer:2},
+  {name:'autoconf',ver:'2.72',desc:'توليد سكربتات configure',deps:'musl,m4',layer:2},
   {name:'automake',ver:'1.16.5',desc:'توليد ملفات Makefile.in',deps:'autoconf',layer:2},
   {name:'libtool',ver:'2.4.7',desc:'إدارة المكتبات المشتركة',deps:'autoconf,automake',layer:2},
-  {name:'m4',ver:'1.4.19',desc:'معالج ماكرو GNU',deps:'glibc',layer:2},
-  {name:'bison',ver:'3.8.2',desc:'مولّد محللات النحو',deps:'glibc,m4',layer:2},
-  {name:'flex',ver:'2.6.4',desc:'مولّد المحللات المعجمية',deps:'glibc',layer:2},
-  {name:'patch',ver:'2.7.6',desc:'تطبيق ملفات diff/patch',deps:'glibc',layer:2},
-  {name:'diffutils',ver:'3.10',desc:'أدوات المقارنة (diff,cmp)',deps:'glibc',layer:2},
-  {name:'bash',ver:'5.2.32',desc:'صدف GNU Bourne Again',deps:'glibc,readline,ncurses',layer:3},
-  {name:'coreutils',ver:'9.5',desc:'أدوات GNU الأساسية (ls,cp,mv...)',deps:'glibc',layer:3},
-  {name:'util-linux',ver:'2.40.2',desc:'أدوات إدارة الأقراص',deps:'glibc,libblkid,libuuid',layer:3},
-  {name:'findutils',ver:'4.10.0',desc:'أدوات البحث (find,xargs)',deps:'glibc',layer:3},
-  {name:'grep',ver:'3.11',desc:'البحث في النصوص',deps:'glibc',layer:3},
-  {name:'sed',ver:'4.9',desc:'محرر النصوص التدفقي',deps:'glibc',layer:3},
-  {name:'gawk',ver:'5.3.0',desc:'معالج النصوص AWK',deps:'glibc',layer:3},
-  {name:'tar',ver:'1.35',desc:'أرشفة GNU tar',deps:'glibc',layer:3},
-  {name:'gzip',ver:'1.13',desc:'ضغط وفك ضغط .gz',deps:'glibc',layer:3},
-  {name:'xz',ver:'5.6.2',desc:'ضغط وفك ضغط .xz',deps:'glibc',layer:3},
-  {name:'bzip2',ver:'1.0.8',desc:'ضغط وفك ضغط .bz2',deps:'glibc',layer:3},
-  {name:'zstd',ver:'1.5.6',desc:'ضغط سريع وعالي الكفاءة',deps:'glibc',layer:3},
-  {name:'file',ver:'5.45',desc:'تحديد نوع الملف',deps:'glibc',layer:3},
-  {name:'which',ver:'2.21',desc:'تحديد مسار البرنامج',deps:'glibc',layer:3},
-  {name:'less',ver:'661',desc:'عارض نصوص متقدم',deps:'glibc,ncurses',layer:3},
-  {name:'procps-ng',ver:'4.0.4',desc:'مراقبة العمليات (ps,top,kill)',deps:'glibc,ncurses',layer:3},
-  {name:'psmisc',ver:'23.7',desc:'أدوات العمليات (pstree,killall)',deps:'glibc,ncurses',layer:3},
-  {name:'shadow',ver:'4.16.0',desc:'إدارة المستخدمين',deps:'glibc,libpam,acl,attr',layer:3},
-  {name:'e2fsprogs',ver:'1.47.1',desc:'أدوات نظام ملفات ext4',deps:'glibc,libblkid,libuuid',layer:3},
-  {name:'dosfstools',ver:'4.2',desc:'أدوات نظام ملفات FAT',deps:'glibc',layer:3},
-  {name:'lvm2',ver:'2.03.25',desc:'إدارة وحدات التخزين المنطقية',deps:'glibc,libaio',layer:3},
-  {name:'vim',ver:'9.1.0',desc:'محرر نصوص متقدم',deps:'glibc,ncurses,acl',layer:3},
-  {name:'nano',ver:'8.1',desc:'محرر نصوص بسيط',deps:'glibc,ncurses',layer:3},
-  {name:'man-db',ver:'2.13.0',desc:'قارئ صفحات الدليل',deps:'glibc,libpipeline,libgdbm,groff',layer:3},
-  {name:'groff',ver:'1.23.0',desc:'نظام تنسيق المستندات',deps:'glibc',layer:3},
-  {name:'iproute2',ver:'6.10.0',desc:'أدوات شبكة لينكس الحديثة',deps:'glibc,libelf,libmnl,libcap',layer:4},
-  {name:'dhcpcd',ver:'10.0.10',desc:'عميل DHCP',deps:'glibc',layer:4},
-  {name:'iptables',ver:'1.8.10',desc:'جدار حماية netfilter',deps:'glibc,libmnl,libnftnl',layer:4},
-  {name:'curl',ver:'8.9.1',desc:'نقل البيانات عبر URL',deps:'glibc,openssl,zlib',layer:4},
-  {name:'wget',ver:'1.24.5',desc:'تحميل الملفات عبر HTTP/FTP',deps:'glibc,openssl,zlib',layer:4},
-  {name:'openssh',ver:'9.8p1',desc:'خادم وعميل SSH',deps:'glibc,openssl,zlib,libpam',layer:4},
-  {name:'gnupg',ver:'2.4.5',desc:'تشفير وتوقيع رقمي',deps:'glibc,libgcrypt,libgpg-error',layer:4},
-  {name:'python3',ver:'3.12.5',desc:'مفسّر Python 3',deps:'glibc,openssl,zlib,libffi,readline',layer:5},
-  {name:'perl',ver:'5.40.0',desc:'مفسّر Perl',deps:'glibc,zlib,openssl',layer:5},
-  {name:'lua',ver:'5.4.7',desc:'مفسّر Lua خفيف الوزن',deps:'glibc,readline',layer:5},
-  {name:'grub',ver:'2.12',desc:'محمّل الإقلاع GNU GRUB',deps:'glibc,xz,ncurses',layer:6},
-  {name:'syslinux',ver:'6.03',desc:'محمّل إقلاع خفيف BIOS/UEFI',deps:'glibc',layer:6},
-  {name:'mkinitfs',ver:'3.9.0',desc:'توليد initramfs',deps:'glibc,bash',layer:6},
-  {name:'winit',ver:'1.0.0',desc:'برنامج الإقلاع PID1 — Al-Ghadir',deps:'glibc',layer:10},
-  {name:'krr',ver:'1.0.0',desc:'مدير حزم Al-Ghadir OS',deps:'glibc,curl,tar,xz,gzip',layer:10},
+  {name:'m4',ver:'1.4.19',desc:'معالج ماكرو GNU',deps:'musl',layer:2},
+  {name:'bison',ver:'3.8.2',desc:'مولّد محللات النحو',deps:'musl,m4',layer:2},
+  {name:'flex',ver:'2.6.4',desc:'مولّد المحللات المعجمية',deps:'musl',layer:2},
+  {name:'patch',ver:'2.7.6',desc:'تطبيق ملفات diff/patch',deps:'musl',layer:2},
+  {name:'diffutils',ver:'3.10',desc:'أدوات المقارنة (diff,cmp)',deps:'musl',layer:2},
+  {name:'bash',ver:'5.2.32',desc:'صدف GNU Bourne Again',deps:'musl,readline,ncurses',layer:3},
+  {name:'coreutils',ver:'9.5',desc:'أدوات GNU الأساسية (ls,cp,mv...)',deps:'musl',layer:3},
+  {name:'util-linux',ver:'2.40.2',desc:'أدوات إدارة الأقراص',deps:'musl,libblkid,libuuid',layer:3},
+  {name:'findutils',ver:'4.10.0',desc:'أدوات البحث (find,xargs)',deps:'musl',layer:3},
+  {name:'grep',ver:'3.11',desc:'البحث في النصوص',deps:'musl',layer:3},
+  {name:'sed',ver:'4.9',desc:'محرر النصوص التدفقي',deps:'musl',layer:3},
+  {name:'gawk',ver:'5.3.0',desc:'معالج النصوص AWK',deps:'musl',layer:3},
+  {name:'tar',ver:'1.35',desc:'أرشفة GNU tar',deps:'musl',layer:3},
+  {name:'gzip',ver:'1.13',desc:'ضغط وفك ضغط .gz',deps:'musl',layer:3},
+  {name:'xz',ver:'5.6.2',desc:'ضغط وفك ضغط .xz',deps:'musl',layer:3},
+  {name:'bzip2',ver:'1.0.8',desc:'ضغط وفك ضغط .bz2',deps:'musl',layer:3},
+  {name:'zstd',ver:'1.5.6',desc:'ضغط سريع وعالي الكفاءة',deps:'musl',layer:3},
+  {name:'file',ver:'5.45',desc:'تحديد نوع الملف',deps:'musl',layer:3},
+  {name:'which',ver:'2.21',desc:'تحديد مسار البرنامج',deps:'musl',layer:3},
+  {name:'less',ver:'661',desc:'عارض نصوص متقدم',deps:'musl,ncurses',layer:3},
+  {name:'procps-ng',ver:'4.0.4',desc:'مراقبة العمليات (ps,top,kill)',deps:'musl,ncurses',layer:3},
+  {name:'psmisc',ver:'23.7',desc:'أدوات العمليات (pstree,killall)',deps:'musl,ncurses',layer:3},
+  {name:'shadow',ver:'4.16.0',desc:'إدارة المستخدمين',deps:'musl,libpam,acl,attr',layer:3},
+  {name:'e2fsprogs',ver:'1.47.1',desc:'أدوات نظام ملفات ext4',deps:'musl,libblkid,libuuid',layer:3},
+  {name:'dosfstools',ver:'4.2',desc:'أدوات نظام ملفات FAT',deps:'musl',layer:3},
+  {name:'lvm2',ver:'2.03.25',desc:'إدارة وحدات التخزين المنطقية',deps:'musl,libaio',layer:3},
+  {name:'vim',ver:'9.1.0',desc:'محرر نصوص متقدم',deps:'musl,ncurses,acl',layer:3},
+  {name:'nano',ver:'8.1',desc:'محرر نصوص بسيط',deps:'musl,ncurses',layer:3},
+  {name:'man-db',ver:'2.13.0',desc:'قارئ صفحات الدليل',deps:'musl,libpipeline,libgdbm,groff',layer:3},
+  {name:'groff',ver:'1.23.0',desc:'نظام تنسيق المستندات',deps:'musl',layer:3},
+  {name:'iproute2',ver:'6.10.0',desc:'أدوات شبكة لينكس الحديثة',deps:'musl,libelf,libmnl,libcap',layer:4},
+  {name:'dhcpcd',ver:'10.0.10',desc:'عميل DHCP',deps:'musl',layer:4},
+  {name:'iptables',ver:'1.8.10',desc:'جدار حماية netfilter',deps:'musl,libmnl,libnftnl',layer:4},
+  {name:'curl',ver:'8.9.1',desc:'نقل البيانات عبر URL',deps:'musl,openssl,zlib',layer:4},
+  {name:'wget',ver:'1.24.5',desc:'تحميل الملفات عبر HTTP/FTP',deps:'musl,openssl,zlib',layer:4},
+  {name:'openssh',ver:'9.8p1',desc:'خادم وعميل SSH',deps:'musl,openssl,zlib,libpam',layer:4},
+  {name:'gnupg',ver:'2.4.5',desc:'تشفير وتوقيع رقمي',deps:'musl,libgcrypt,libgpg-error',layer:4},
+  {name:'python3',ver:'3.12.5',desc:'مفسّر Python 3',deps:'musl,openssl,zlib,libffi,readline',layer:5},
+  {name:'perl',ver:'5.40.0',desc:'مفسّر Perl',deps:'musl,zlib,openssl',layer:5},
+  {name:'lua',ver:'5.4.7',desc:'مفسّر Lua خفيف الوزن',deps:'musl,readline',layer:5},
+  {name:'grub',ver:'2.12',desc:'محمّل الإقلاع GNU GRUB',deps:'musl,xz,ncurses',layer:6},
+  {name:'syslinux',ver:'6.03',desc:'محمّل إقلاع خفيف BIOS/UEFI',deps:'musl',layer:6},
+  {name:'mkinitfs',ver:'3.9.0',desc:'توليد initramfs',deps:'musl,bash',layer:6},
+  {name:'winit',ver:'1.0.0',desc:'برنامج الإقلاع PID1 — Al-Ghadir',deps:'musl',layer:10},
+  {name:'krr',ver:'1.0.0',desc:'مدير حزم Al-Ghadir OS',deps:'musl,curl,tar,xz,gzip',layer:10},
 ];
 
 const layerNames={0:'core',1:'libs',2:'build',3:'system',4:'network',5:'interp',6:'boot',10:'alghadir'};
@@ -703,7 +703,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 <section id="llvm" style="border-top:1px solid var(--border)">
   <div class="section-label">الـ Toolchain</div>
   <h2>LLVM 18 — لا gcc هنا</h2>
-  <p class="section-sub">Al-Ghadir OS يستخدم LLVM/Clang كاملاً — أسرع، أوضح، أحدث.</p>
+  <p class="section-sub">Al-Ghadir OS يستخدم LLVM/Clang + musl كاملاً — أسرع، أخف، أنظف.</p>
 
   <div class="phil-grid reveal">
     <div class="phil-card">
@@ -735,6 +735,11 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
       <div class="phil-icon">🏗</div>
       <h4>Monorepo مُتزامن</h4>
       <p>كل مكونات LLVM تصدر معاً — clang 18 + lld 18 + libc++ 18، لا مشاكل توافق بين الإصدارات.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon">🐚</div>
+      <h4>musl بدل glibc</h4>
+      <p>مكتبة C نظيفة ومكتوبة بالكامل بـ C خالص — 500 KB بدل 2.5 MB، static linking حقيقي، وتوافق ممتاز مع LLVM.</p>
     </div>
   </div>
 
@@ -769,6 +774,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     <div class="cmd-card"><div class="cmd-title" style="color:var(--cyan)">libc++ 18.1.8</div><div class="cmd-explain">مكتبة C++ القياسية</div></div>
     <div class="cmd-card"><div class="cmd-title" style="color:var(--cyan)">libc++abi 18.1.8</div><div class="cmd-explain">مكتبة ABI لـ C++</div></div>
     <div class="cmd-card"><div class="cmd-title" style="color:var(--cyan)">libunwind 18.1.8</div><div class="cmd-explain">فك تكديس الإطارات</div></div>
+    <div class="cmd-card"><div class="cmd-title" style="color:var(--cyan)">musl 1.2.5</div><div class="cmd-explain">مكتبة C — خفيفة ونظيفة</div></div>
   </div>
 </section>
 
@@ -776,7 +782,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 <footer>
   <div class="logo-footer">Al-Ghadir OS</div>
   <p>نظام لينكس مبني من الصفر بروح عربية</p>
-  <p style="margin-top:.4rem;font-size:.78rem">krr &nbsp;·&nbsp; winit &nbsp;·&nbsp; LLVM/Clang 18 &nbsp;·&nbsp; KDE Plasma 6 &nbsp;·&nbsp; مفتوح المصدر</p>
+  <p style="margin-top:.4rem;font-size:.78rem">krr &nbsp;·&nbsp; winit &nbsp;·&nbsp; LLVM/Clang 18 &nbsp;·&nbsp; musl &nbsp;·&nbsp; KDE Plasma 6 &nbsp;·&nbsp; مفتوح المصدر</p>
   <p style="margin-top:1rem;font-size:.75rem;opacity:.5">© 2025 Al-Ghadir OS — النظام سيتم إطلاقه قريباً</p>
 </footer>
 
